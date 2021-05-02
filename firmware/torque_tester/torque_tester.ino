@@ -94,13 +94,13 @@ void debug_print(HX711_ADC LoadCell)
 
 void debug_spin()
 {
-  digitalWrite(DIR, !reverse);
+  digitalWrite(DIR, reverse);
   while(true)
   {
     digitalWrite(STEP, HIGH);
     delayMicroseconds(5);
     digitalWrite(STEP, LOW);
-    delayMicroseconds(50);
+    delayMicroseconds(200);
   }
 }
 
