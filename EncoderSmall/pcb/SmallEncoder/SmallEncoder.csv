@@ -1,0 +1,13 @@
+"Id";"Designator";"Package";"Quantity";"Designation";"Supplier and ref";
+1;"J3";"PinHeader_1x05_P2.54mm_Vertical";1;"Conn_01x05";;;
+2;"C5,C4,C3";"C_0603_1608Metric";3;"100nF";;;
+3;"H3,H2,H1";"MountingHole_2.7mm_M2.5_DIN965_Pad";3;"MountingHole_Pad";;;
+4;"R2";"R_0603_1608Metric";1;"174";;;
+5;"R1";"R_0603_1608Metric";1;"10k";;;
+6;"C2";"C_0603_1608Metric";1;"1uF";;;
+7;"C1";"C_0805_2012Metric";1;"10uF";;;
+8;"U3";"SOT-96-1";1;"KMZ49";;;
+9;"J2,J1";"PinHeader_1x04_P2.54mm_Horizontal";2;"Conn_01x04";;;
+10;"U2";"SOT-23-5";1;"AP2112K-3.3";;;
+11;"S1";"KMR421GULCLFS";1;"KMR243GLFG";;;
+12;"IC1";"QFN50P500X500X100-33N-D";1;"ATSAMD21E15B";;;
