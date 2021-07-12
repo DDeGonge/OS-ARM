@@ -44,7 +44,7 @@ void setup() {
     Serial.println("HX711 Startup is complete");
   }
 
-//  debug_print(LoadCell);
+  debug_print(LoadCell);
 //  debug_spin();
 }
 
@@ -87,7 +87,8 @@ void debug_print(HX711_ADC LoadCell)
   {
     if (LoadCell.update()) 
     {
-      Serial.println(LoadCell.getData() * g_accel * arm_len_m);
+      Serial.print(LoadCell.getData() * g_accel * arm_len_m);
+      Serial.println(" Nm");
     }
   }
 }

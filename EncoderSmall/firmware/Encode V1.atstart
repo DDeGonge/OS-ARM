@@ -1,0 +1,657 @@
+format_version: '2'
+name: Encode V1
+versions:
+  api: '1.0'
+  backend: 1.8.580
+  commit: f3d8d96e294de8dee688333bbbe8d8458a4f6b4c
+  content: unknown
+  content_pack_name: unknown
+  format: '2'
+  frontend: 1.8.580
+  packs_version_avr8: 1.0.1463
+  packs_version_qtouch: unknown
+  packs_version_sam: 1.0.1726
+  version_backend: 1.8.580
+  version_frontend: ''
+board:
+  identifier: CustomBoard
+  device: SAMD21E15B-MF
+details: null
+application: null
+middlewares: {}
+drivers:
+  ADC_0:
+    user_label: ADC_0
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::ADC::driver_config_definition::ADC::HAL:Driver:ADC.Sync
+    functionality: ADC
+    api: HAL:Driver:ADC_Sync
+    configuration:
+      adc_advanced_settings: false
+      adc_arch_adjres: 0
+      adc_arch_corren: false
+      adc_arch_dbgrun: false
+      adc_arch_event_settings: false
+      adc_arch_gain: 1x
+      adc_arch_gaincorr: 0
+      adc_arch_inputoffset: 0
+      adc_arch_inputscan: 0
+      adc_arch_leftadj: false
+      adc_arch_offsetcorr: 0
+      adc_arch_refcomp: false
+      adc_arch_resrdyeo: false
+      adc_arch_runstdby: false
+      adc_arch_samplen: 0
+      adc_arch_samplenum: 1 sample
+      adc_arch_startei: false
+      adc_arch_syncei: false
+      adc_arch_winlt: 0
+      adc_arch_winmode: No window mode
+      adc_arch_winmoneo: false
+      adc_arch_winut: 0
+      adc_differential_mode: false
+      adc_freerunning_mode: false
+      adc_pinmux_negative: ADC AIN0 pin
+      adc_pinmux_positive: ADC AIN0 pin
+      adc_prescaler: Peripheral clock divided by 4
+      adc_reference: 1.0V voltage reference
+      adc_resolution: 12-bit
+    optional_signals: []
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: ADC
+          input: Generic clock generator 0
+          external: false
+          external_frequency: 0
+        configuration:
+          adc_gclk_selection: Generic clock generator 0
+  GCLK:
+    user_label: GCLK
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::GCLK::driver_config_definition::GCLK::HAL:HPL:GCLK
+    functionality: System
+    api: HAL:HPL:GCLK
+    configuration:
+      $input: 400000
+      $input_id: External Crystal Oscillator 0.4-32MHz (XOSC)
+      RESERVED_InputFreq: 400000
+      RESERVED_InputFreq_id: External Crystal Oscillator 0.4-32MHz (XOSC)
+      _$freq_output_Generic clock generator 0: 1000000
+      _$freq_output_Generic clock generator 1: 400000
+      _$freq_output_Generic clock generator 2: 400000
+      _$freq_output_Generic clock generator 3: 400000
+      _$freq_output_Generic clock generator 4: 400000
+      _$freq_output_Generic clock generator 5: 400000
+      _$freq_output_Generic clock generator 6: 400000
+      _$freq_output_Generic clock generator 7: 400000
+      enable_gclk_gen_0: true
+      enable_gclk_gen_0__externalclock: 1000000
+      enable_gclk_gen_1: false
+      enable_gclk_gen_1__externalclock: 1000000
+      enable_gclk_gen_2: false
+      enable_gclk_gen_2__externalclock: 1000000
+      enable_gclk_gen_3: false
+      enable_gclk_gen_3__externalclock: 1000000
+      enable_gclk_gen_4: false
+      enable_gclk_gen_4__externalclock: 1000000
+      enable_gclk_gen_5: false
+      enable_gclk_gen_5__externalclock: 1000000
+      enable_gclk_gen_6: false
+      enable_gclk_gen_6__externalclock: 1000000
+      enable_gclk_gen_7: false
+      enable_gclk_gen_7__externalclock: 1000000
+      gclk_arch_gen_0_RUNSTDBY: false
+      gclk_arch_gen_0_enable: true
+      gclk_arch_gen_0_idc: false
+      gclk_arch_gen_0_oe: false
+      gclk_arch_gen_0_oov: false
+      gclk_arch_gen_1_RUNSTDBY: false
+      gclk_arch_gen_1_enable: false
+      gclk_arch_gen_1_idc: false
+      gclk_arch_gen_1_oe: false
+      gclk_arch_gen_1_oov: false
+      gclk_arch_gen_2_RUNSTDBY: false
+      gclk_arch_gen_2_enable: false
+      gclk_arch_gen_2_idc: false
+      gclk_arch_gen_2_oe: false
+      gclk_arch_gen_2_oov: false
+      gclk_arch_gen_3_RUNSTDBY: false
+      gclk_arch_gen_3_enable: false
+      gclk_arch_gen_3_idc: false
+      gclk_arch_gen_3_oe: false
+      gclk_arch_gen_3_oov: false
+      gclk_arch_gen_4_RUNSTDBY: false
+      gclk_arch_gen_4_enable: false
+      gclk_arch_gen_4_idc: false
+      gclk_arch_gen_4_oe: false
+      gclk_arch_gen_4_oov: false
+      gclk_arch_gen_5_RUNSTDBY: false
+      gclk_arch_gen_5_enable: false
+      gclk_arch_gen_5_idc: false
+      gclk_arch_gen_5_oe: false
+      gclk_arch_gen_5_oov: false
+      gclk_arch_gen_6_RUNSTDBY: false
+      gclk_arch_gen_6_enable: false
+      gclk_arch_gen_6_idc: false
+      gclk_arch_gen_6_oe: false
+      gclk_arch_gen_6_oov: false
+      gclk_arch_gen_7_RUNSTDBY: false
+      gclk_arch_gen_7_enable: false
+      gclk_arch_gen_7_idc: false
+      gclk_arch_gen_7_oe: false
+      gclk_arch_gen_7_oov: false
+      gclk_gen_0_div: 1
+      gclk_gen_0_div_sel: false
+      gclk_gen_0_oscillator: 8MHz Internal Oscillator (OSC8M)
+      gclk_gen_1_div: 1
+      gclk_gen_1_div_sel: false
+      gclk_gen_1_oscillator: External Crystal Oscillator 0.4-32MHz (XOSC)
+      gclk_gen_2_div: 1
+      gclk_gen_2_div_sel: false
+      gclk_gen_2_oscillator: External Crystal Oscillator 0.4-32MHz (XOSC)
+      gclk_gen_3_div: 1
+      gclk_gen_3_div_sel: false
+      gclk_gen_3_oscillator: External Crystal Oscillator 0.4-32MHz (XOSC)
+      gclk_gen_4_div: 1
+      gclk_gen_4_div_sel: false
+      gclk_gen_4_oscillator: External Crystal Oscillator 0.4-32MHz (XOSC)
+      gclk_gen_5_div: 1
+      gclk_gen_5_div_sel: false
+      gclk_gen_5_oscillator: External Crystal Oscillator 0.4-32MHz (XOSC)
+      gclk_gen_6_div: 1
+      gclk_gen_6_div_sel: false
+      gclk_gen_6_oscillator: External Crystal Oscillator 0.4-32MHz (XOSC)
+      gclk_gen_7_div: 1
+      gclk_gen_7_div_sel: false
+      gclk_gen_7_oscillator: External Crystal Oscillator 0.4-32MHz (XOSC)
+    optional_signals: []
+    variant: null
+    clocks:
+      domain_group: null
+  FLASH_0:
+    user_label: FLASH_0
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::NVMCTRL::driver_config_definition::Flash::HAL:Driver:FLASH
+    functionality: Flash
+    api: HAL:Driver:FLASH
+    configuration:
+      nvm_arch_cache: false
+      nvm_arch_read_mode: No Miss Penalty
+      nvm_arch_sleepprm: Wake On Access
+    optional_signals: []
+    variant: null
+    clocks:
+      domain_group: null
+  PM:
+    user_label: PM
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::PM::driver_config_definition::PM::HAL:HPL:PM
+    functionality: System
+    api: HAL:HPL:PM
+    configuration:
+      $input: 1000000
+      $input_id: Generic clock generator 0
+      RESERVED_InputFreq: 1000000
+      RESERVED_InputFreq_id: Generic clock generator 0
+      _$freq_output_CPU: 1000000
+      apba_div: '1'
+      apbb_div: '1'
+      apbc_div: '1'
+      cpu_clock_source: Generic clock generator 0
+      cpu_div: '1'
+      enable_cpu_clock: true
+      nvm_wait_states: '0'
+    optional_signals: []
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: CPU
+          input: CPU
+          external: false
+          external_frequency: 0
+        configuration: {}
+  I2C_0:
+    user_label: I2C_0
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::SERCOM0::driver_config_definition::I2C.Slave.Highspeed-mode::HAL:Driver:I2C.Slave.Sync
+    functionality: I2C
+    api: HAL:Driver:I2C_Slave_Sync
+    configuration:
+      i2c_slave_address: 165
+      i2c_slave_address_mask: 0
+      i2c_slave_advanced: false
+      i2c_slave_amode: Mask
+      i2c_slave_gencen: false
+      i2c_slave_lowtout: false
+      i2c_slave_runstdby: false
+      i2c_slave_sclsm: false
+      i2c_slave_sdahold: 300-600ns hold time
+      i2c_slave_sexttoen: false
+      i2c_slave_tenbiten: false
+    optional_signals: []
+    variant:
+      specification: SDA=0, SCL=1
+      required_signals:
+      - name: SERCOM0/PAD/0
+        pad: PA08
+        label: SDA
+      - name: SERCOM0/PAD/1
+        pad: PA09
+        label: SCL
+    clocks:
+      domain_group:
+        nodes:
+        - name: Core
+          input: Generic clock generator 0
+          external: false
+          external_frequency: 0
+        - name: Slow
+          input: Generic clock generator 3
+          external: false
+          external_frequency: 0
+        configuration:
+          core_gclk_selection: Generic clock generator 0
+          slow_gclk_selection: Generic clock generator 3
+  DMAC:
+    user_label: DMAC
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::DMAC::driver_config_definition::DMAC::HAL:HPL:DMAC
+    functionality: System
+    api: HAL:HPL:DMAC
+    configuration:
+      dmac_beatsize_0: 8-bit bus transfer
+      dmac_beatsize_1: 8-bit bus transfer
+      dmac_beatsize_10: 8-bit bus transfer
+      dmac_beatsize_11: 8-bit bus transfer
+      dmac_beatsize_12: 8-bit bus transfer
+      dmac_beatsize_13: 8-bit bus transfer
+      dmac_beatsize_14: 8-bit bus transfer
+      dmac_beatsize_15: 8-bit bus transfer
+      dmac_beatsize_2: 8-bit bus transfer
+      dmac_beatsize_3: 8-bit bus transfer
+      dmac_beatsize_4: 8-bit bus transfer
+      dmac_beatsize_5: 8-bit bus transfer
+      dmac_beatsize_6: 8-bit bus transfer
+      dmac_beatsize_7: 8-bit bus transfer
+      dmac_beatsize_8: 8-bit bus transfer
+      dmac_beatsize_9: 8-bit bus transfer
+      dmac_blockact_0: Channel will be disabled if it is the last block transfer in
+        the transaction
+      dmac_blockact_1: Channel will be disabled if it is the last block transfer in
+        the transaction
+      dmac_blockact_10: Channel will be disabled if it is the last block transfer
+        in the transaction
+      dmac_blockact_11: Channel will be disabled if it is the last block transfer
+        in the transaction
+      dmac_blockact_12: Channel will be disabled if it is the last block transfer
+        in the transaction
+      dmac_blockact_13: Channel will be disabled if it is the last block transfer
+        in the transaction
+      dmac_blockact_14: Channel will be disabled if it is the last block transfer
+        in the transaction
+      dmac_blockact_15: Channel will be disabled if it is the last block transfer
+        in the transaction
+      dmac_blockact_2: Channel will be disabled if it is the last block transfer in
+        the transaction
+      dmac_blockact_3: Channel will be disabled if it is the last block transfer in
+        the transaction
+      dmac_blockact_4: Channel will be disabled if it is the last block transfer in
+        the transaction
+      dmac_blockact_5: Channel will be disabled if it is the last block transfer in
+        the transaction
+      dmac_blockact_6: Channel will be disabled if it is the last block transfer in
+        the transaction
+      dmac_blockact_7: Channel will be disabled if it is the last block transfer in
+        the transaction
+      dmac_blockact_8: Channel will be disabled if it is the last block transfer in
+        the transaction
+      dmac_blockact_9: Channel will be disabled if it is the last block transfer in
+        the transaction
+      dmac_channel_0_settings: false
+      dmac_channel_10_settings: false
+      dmac_channel_11_settings: false
+      dmac_channel_12_settings: false
+      dmac_channel_13_settings: false
+      dmac_channel_14_settings: false
+      dmac_channel_15_settings: false
+      dmac_channel_1_settings: false
+      dmac_channel_2_settings: false
+      dmac_channel_3_settings: false
+      dmac_channel_4_settings: false
+      dmac_channel_5_settings: false
+      dmac_channel_6_settings: false
+      dmac_channel_7_settings: false
+      dmac_channel_8_settings: false
+      dmac_channel_9_settings: false
+      dmac_dbgrun: false
+      dmac_dstinc_0: false
+      dmac_dstinc_1: false
+      dmac_dstinc_10: false
+      dmac_dstinc_11: false
+      dmac_dstinc_12: false
+      dmac_dstinc_13: false
+      dmac_dstinc_14: false
+      dmac_dstinc_15: false
+      dmac_dstinc_2: false
+      dmac_dstinc_3: false
+      dmac_dstinc_4: false
+      dmac_dstinc_5: false
+      dmac_dstinc_6: false
+      dmac_dstinc_7: false
+      dmac_dstinc_8: false
+      dmac_dstinc_9: false
+      dmac_enable: false
+      dmac_enable_0: false
+      dmac_enable_1: false
+      dmac_enable_10: false
+      dmac_enable_11: false
+      dmac_enable_12: false
+      dmac_enable_13: false
+      dmac_enable_14: false
+      dmac_enable_15: false
+      dmac_enable_2: false
+      dmac_enable_3: false
+      dmac_enable_4: false
+      dmac_enable_5: false
+      dmac_enable_6: false
+      dmac_enable_7: false
+      dmac_enable_8: false
+      dmac_enable_9: false
+      dmac_evact_0: No action
+      dmac_evact_1: No action
+      dmac_evact_10: No action
+      dmac_evact_11: No action
+      dmac_evact_12: No action
+      dmac_evact_13: No action
+      dmac_evact_14: No action
+      dmac_evact_15: No action
+      dmac_evact_2: No action
+      dmac_evact_3: No action
+      dmac_evact_4: No action
+      dmac_evact_5: No action
+      dmac_evact_6: No action
+      dmac_evact_7: No action
+      dmac_evact_8: No action
+      dmac_evact_9: No action
+      dmac_evie_0: false
+      dmac_evie_1: false
+      dmac_evie_10: false
+      dmac_evie_11: false
+      dmac_evie_12: false
+      dmac_evie_13: false
+      dmac_evie_14: false
+      dmac_evie_15: false
+      dmac_evie_2: false
+      dmac_evie_3: false
+      dmac_evie_4: false
+      dmac_evie_5: false
+      dmac_evie_6: false
+      dmac_evie_7: false
+      dmac_evie_8: false
+      dmac_evie_9: false
+      dmac_evoe_0: false
+      dmac_evoe_1: false
+      dmac_evoe_10: false
+      dmac_evoe_11: false
+      dmac_evoe_12: false
+      dmac_evoe_13: false
+      dmac_evoe_14: false
+      dmac_evoe_15: false
+      dmac_evoe_2: false
+      dmac_evoe_3: false
+      dmac_evoe_4: false
+      dmac_evoe_5: false
+      dmac_evoe_6: false
+      dmac_evoe_7: false
+      dmac_evoe_8: false
+      dmac_evoe_9: false
+      dmac_evosel_0: Event generation disabled
+      dmac_evosel_1: Event generation disabled
+      dmac_evosel_10: Event generation disabled
+      dmac_evosel_11: Event generation disabled
+      dmac_evosel_12: Event generation disabled
+      dmac_evosel_13: Event generation disabled
+      dmac_evosel_14: Event generation disabled
+      dmac_evosel_15: Event generation disabled
+      dmac_evosel_2: Event generation disabled
+      dmac_evosel_3: Event generation disabled
+      dmac_evosel_4: Event generation disabled
+      dmac_evosel_5: Event generation disabled
+      dmac_evosel_6: Event generation disabled
+      dmac_evosel_7: Event generation disabled
+      dmac_evosel_8: Event generation disabled
+      dmac_evosel_9: Event generation disabled
+      dmac_lvl_0: Channel priority 0
+      dmac_lvl_1: Channel priority 0
+      dmac_lvl_10: Channel priority 0
+      dmac_lvl_11: Channel priority 0
+      dmac_lvl_12: Channel priority 0
+      dmac_lvl_13: Channel priority 0
+      dmac_lvl_14: Channel priority 0
+      dmac_lvl_15: Channel priority 0
+      dmac_lvl_2: Channel priority 0
+      dmac_lvl_3: Channel priority 0
+      dmac_lvl_4: Channel priority 0
+      dmac_lvl_5: Channel priority 0
+      dmac_lvl_6: Channel priority 0
+      dmac_lvl_7: Channel priority 0
+      dmac_lvl_8: Channel priority 0
+      dmac_lvl_9: Channel priority 0
+      dmac_lvlen0: false
+      dmac_lvlen1: false
+      dmac_lvlen2: false
+      dmac_lvlen3: false
+      dmac_lvlpri0: 0
+      dmac_lvlpri1: 0
+      dmac_lvlpri2: 0
+      dmac_lvlpri3: 0
+      dmac_rrlvlen0: Static arbitration scheme for channel with priority 0
+      dmac_rrlvlen1: Static arbitration scheme for channel with priority 1
+      dmac_rrlvlen2: Static arbitration scheme for channel with priority 2
+      dmac_rrlvlen3: Static arbitration scheme for channel with priority 3
+      dmac_srcinc_0: false
+      dmac_srcinc_1: false
+      dmac_srcinc_10: false
+      dmac_srcinc_11: false
+      dmac_srcinc_12: false
+      dmac_srcinc_13: false
+      dmac_srcinc_14: false
+      dmac_srcinc_15: false
+      dmac_srcinc_2: false
+      dmac_srcinc_3: false
+      dmac_srcinc_4: false
+      dmac_srcinc_5: false
+      dmac_srcinc_6: false
+      dmac_srcinc_7: false
+      dmac_srcinc_8: false
+      dmac_srcinc_9: false
+      dmac_stepsel_0: Step size settings apply to the destination address
+      dmac_stepsel_1: Step size settings apply to the destination address
+      dmac_stepsel_10: Step size settings apply to the destination address
+      dmac_stepsel_11: Step size settings apply to the destination address
+      dmac_stepsel_12: Step size settings apply to the destination address
+      dmac_stepsel_13: Step size settings apply to the destination address
+      dmac_stepsel_14: Step size settings apply to the destination address
+      dmac_stepsel_15: Step size settings apply to the destination address
+      dmac_stepsel_2: Step size settings apply to the destination address
+      dmac_stepsel_3: Step size settings apply to the destination address
+      dmac_stepsel_4: Step size settings apply to the destination address
+      dmac_stepsel_5: Step size settings apply to the destination address
+      dmac_stepsel_6: Step size settings apply to the destination address
+      dmac_stepsel_7: Step size settings apply to the destination address
+      dmac_stepsel_8: Step size settings apply to the destination address
+      dmac_stepsel_9: Step size settings apply to the destination address
+      dmac_stepsize_0: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_1: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_10: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_11: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_12: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_13: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_14: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_15: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_2: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_3: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_4: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_5: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_6: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_7: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_8: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_stepsize_9: Next ADDR = ADDR + (BEATSIZE + 1) * 1
+      dmac_trifsrc_0: Only software/event triggers
+      dmac_trifsrc_1: Only software/event triggers
+      dmac_trifsrc_10: Only software/event triggers
+      dmac_trifsrc_11: Only software/event triggers
+      dmac_trifsrc_12: Only software/event triggers
+      dmac_trifsrc_13: Only software/event triggers
+      dmac_trifsrc_14: Only software/event triggers
+      dmac_trifsrc_15: Only software/event triggers
+      dmac_trifsrc_2: Only software/event triggers
+      dmac_trifsrc_3: Only software/event triggers
+      dmac_trifsrc_4: Only software/event triggers
+      dmac_trifsrc_5: Only software/event triggers
+      dmac_trifsrc_6: Only software/event triggers
+      dmac_trifsrc_7: Only software/event triggers
+      dmac_trifsrc_8: Only software/event triggers
+      dmac_trifsrc_9: Only software/event triggers
+      dmac_trigact_0: One trigger required for each block transfer
+      dmac_trigact_1: One trigger required for each block transfer
+      dmac_trigact_10: One trigger required for each block transfer
+      dmac_trigact_11: One trigger required for each block transfer
+      dmac_trigact_12: One trigger required for each block transfer
+      dmac_trigact_13: One trigger required for each block transfer
+      dmac_trigact_14: One trigger required for each block transfer
+      dmac_trigact_15: One trigger required for each block transfer
+      dmac_trigact_2: One trigger required for each block transfer
+      dmac_trigact_3: One trigger required for each block transfer
+      dmac_trigact_4: One trigger required for each block transfer
+      dmac_trigact_5: One trigger required for each block transfer
+      dmac_trigact_6: One trigger required for each block transfer
+      dmac_trigact_7: One trigger required for each block transfer
+      dmac_trigact_8: One trigger required for each block transfer
+      dmac_trigact_9: One trigger required for each block transfer
+    optional_signals: []
+    variant: null
+    clocks:
+      domain_group: null
+  SYSCTRL:
+    user_label: SYSCTRL
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::SYSCTRL::driver_config_definition::SYSCTRL::HAL:HPL:SYSCTRL
+    functionality: System
+    api: HAL:HPL:SYSCTRL
+    configuration:
+      $input: 400000
+      $input_id: Generic clock generator 3
+      RESERVED_InputFreq: 400000
+      RESERVED_InputFreq_id: Generic clock generator 3
+      _$freq_output_8MHz Internal Oscillator (OSC8M): 1000000
+      _$freq_output_Digital Frequency Locked Loop (DFLL48M): 48000000
+      _$freq_output_External Crystal Oscillator 0.4-32MHz (XOSC): '400000'
+      _$freq_output_Fractional Digital Phase Locked Loop (FDPLL96M): 585925000
+      dfll48m_arch_bplckc: false
+      dfll48m_arch_calibration: false
+      dfll48m_arch_ccdis: false
+      dfll48m_arch_coarse: 31
+      dfll48m_arch_enable: false
+      dfll48m_arch_fine: 512
+      dfll48m_arch_llaw: false
+      dfll48m_arch_ondemand: true
+      dfll48m_arch_qldis: false
+      dfll48m_arch_runstdby: false
+      dfll48m_arch_stable: false
+      dfll48m_arch_usbcrm: false
+      dfll48m_arch_waitlock: false
+      dfll48m_mode: Open Loop Mode
+      dfll48m_mul: 0
+      dfll48m_ref_clock: Generic clock generator 3
+      dfll_arch_cstep: 1
+      dfll_arch_fstep: 1
+      enable_dfll48m: false
+      enable_fdpll96m: false
+      enable_osc32k: false
+      enable_osc8m: true
+      enable_osculp32k: true
+      enable_xosc: false
+      enable_xosc32k: false
+      fdpll96m_arch_enable: false
+      fdpll96m_arch_lbypass: false
+      fdpll96m_arch_ondemand: true
+      fdpll96m_arch_runstdby: false
+      fdpll96m_clock_div: 0
+      fdpll96m_ldr: 1463
+      fdpll96m_ldrfrac: 13
+      fdpll96m_ref_clock: Generic clock generator 3
+      osc32k_arch_calib: 0
+      osc32k_arch_en1k: false
+      osc32k_arch_en32k: false
+      osc32k_arch_enable: false
+      osc32k_arch_ondemand: true
+      osc32k_arch_overwrite_calibration: false
+      osc32k_arch_runstdby: false
+      osc32k_arch_startup: 3 Clock Cycles (92us)
+      osc32k_arch_wrtlock: false
+      osc8m_arch_calib: 0
+      osc8m_arch_enable: true
+      osc8m_arch_ondemand: true
+      osc8m_arch_overwrite_calibration: false
+      osc8m_arch_runstdby: false
+      osc8m_presc: '8'
+      osculp32k_arch_calib: 0
+      osculp32k_arch_overwrite_calibration: false
+      osculp32k_arch_wrtlock: false
+      xosc32k_arch_aampen: false
+      xosc32k_arch_en1k: false
+      xosc32k_arch_en32k: false
+      xosc32k_arch_enable: false
+      xosc32k_arch_ondemand: true
+      xosc32k_arch_runstdby: false
+      xosc32k_arch_startup: 122 us
+      xosc32k_arch_wrtlock: false
+      xosc32k_arch_xtalen: false
+      xosc_arch_ampgc: false
+      xosc_arch_enable: false
+      xosc_arch_gain: 2Mhz
+      xosc_arch_ondemand: true
+      xosc_arch_runstdby: false
+      xosc_arch_startup: 31 us
+      xosc_arch_xtalen: false
+      xosc_frequency: 400000
+    optional_signals: []
+    variant: null
+    clocks:
+      domain_group: null
+pads:
+  OP1:
+    name: PA04
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::pad::PA04
+    mode: Analog
+    user_label: OP1
+    configuration: null
+  OP2:
+    name: PA05
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::pad::PA05
+    mode: Analog
+    user_label: OP2
+    configuration: null
+  ON2:
+    name: PA06
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::pad::PA06
+    mode: Analog
+    user_label: ON2
+    configuration: null
+  ON1:
+    name: PA07
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::pad::PA07
+    mode: Analog
+    user_label: ON1
+    configuration: null
+  SCL:
+    name: PA08
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::pad::PA08
+    mode: I2C
+    user_label: SCL
+    configuration: null
+  SDA:
+    name: PA09
+    definition: Atmel:SAMD21C_Drivers:0.0.1::SAMD21E15B-MF::pad::PA09
+    mode: I2C
+    user_label: SDA
+    configuration: null
+toolchain_options: []
+static_files: []
