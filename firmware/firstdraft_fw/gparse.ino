@@ -28,6 +28,7 @@ void parse_inputs(char serial_data[MAX_MSG_LEN], vector<string> &args) {
   char delim = ' ';
   uint32_t index = 0;
   string temp_arg_str = "";
+//  debug_print_str(serial_data);
 
   while (serial_data[index] != '\0') {
     temp_arg_str += serial_data[index];
