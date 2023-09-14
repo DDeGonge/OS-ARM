@@ -10,10 +10,25 @@ void setup() {
   while (!Serial);
   Serial.println("BEGINNING!");
 
-  delay(2000);
+  delay(100);
 
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, HIGH);
+
+//  pinMode(S1CS, OUTPUT);
+//  pinMode(14, OUTPUT);
+//  pinMode(15, OUTPUT);
+//  while(true)
+//  {
+//    digitalWrite(S1CS, HIGH);
+//    digitalWrite(14, HIGH);
+//    digitalWrite(15, HIGH);
+//    delay(1000);
+//    digitalWrite(S1CS, LOW);
+//    digitalWrite(14, LOW);
+//    digitalWrite(15, LOW);
+//    delay(1000);
+//  }
 }
 
 void loop() {
@@ -29,7 +44,7 @@ void loop() {
   Serial.println("Driver 1 initialized...");
   
   TMC5160 Driver2(S2EN, S2CS);
-  TMCstep Stepper2 = TMCstep(S2STEP, S2DIR, Driver2, false);
+  TMCstep Stepper2 = TMCstep(S2STEP, S2DIR, Driver2, true);
   Serial.println("Driver 2 initialized...");
   
   TMC2041 Driver3(S3S4EN, S3S4CS);
@@ -51,48 +66,59 @@ void loop() {
   Driver5.configure();
   Serial.println("Configured motor drivers");
 
-  motorDrive mDrive0 = motorDrive(Stepper0, 24400);   // steps per rad
-  motorDrive mDrive1 = motorDrive(Stepper1, 103896); // steps per rad, 102:1 reduction
-  motorDrive mDrive2 = motorDrive(Stepper2, 103896); // steps per rad, 102:1 reduction
-  motorDrive mDrive3 = motorDrive(Stepper3, 10695);  // steps per rad 8:1 reduction
+  motorDrive mDrive0 = motorDrive(Stepper0, 3050);   // steps per rad
+  motorDrive mDrive1 = motorDrive(Stepper1, 12987); // steps per rad, 102:1 reduction  - 103896
+  motorDrive mDrive2 = motorDrive(Stepper2, 12987); // steps per rad, 102:1 reduction
+  motorDrive mDrive3 = motorDrive(Stepper3, 10695);  // steps per rad 8:1 reduction - 10695
   motorDrive mDrive4 = motorDrive(Stepper4, 6400);   // steps per rad,
   motorDrive mDrive5 = motorDrive(Stepper5, 6400);   // steps per rad
   motorDrive mDrive6 = motorDrive(Stepper6, 6400);   // steps per rad
 
-  Stepper0.set_run_current(24);
+  Stepper0.set_run_current(29);
   Stepper0.set_hold_current(12);
-  mDrive0.set_default_vel_mmps(1);
-  mDrive0.set_default_acc_mmps2(40);
+  Stepper0.set_microsteps(4); // 1/16 stepping
+  mDrive0.set_default_vel_mmps(5);
+  mDrive0.set_default_acc_mmps2(20);
+  mDrive0.set_move_limits_mm(-1.57, 1.57);
 
   Stepper1.set_run_current(30);
   Stepper1.set_hold_current(12);
-  mDrive1.set_default_vel_mmps(0.05);
-  mDrive1.set_default_acc_mmps2(20);
+  Stepper1.set_microsteps(6); // 1/4 stepping
+  mDrive1.set_default_vel_mmps(0.5);
+  mDrive1.set_default_acc_mmps2(5);
+  mDrive0.set_move_limits_mm(0.0, 2.25);
 
   Stepper2.set_run_current(30);
   Stepper2.set_hold_current(12);
-  mDrive2.set_default_vel_mmps(0.05);
-  mDrive2.set_default_acc_mmps2(20);
+  Stepper2.set_microsteps(6); // 1/4 stepping
+  mDrive2.set_default_vel_mmps(0.5);
+  mDrive2.set_default_acc_mmps2(5);
+  mDrive0.set_move_limits_mm(0.0, 2.25);
 
-  Stepper3.set_run_current(28);
-  Stepper3.set_hold_current(20);
-  mDrive3.set_default_vel_mmps(1);
-  mDrive3.set_default_acc_mmps2(10);
+  Stepper3.set_run_current(30);
+  Stepper3.set_hold_current(26);
+  Stepper0.set_microsteps(4); // 1/16 stepping
+  mDrive3.set_default_vel_mmps(1.0);
+  mDrive3.set_default_acc_mmps2(25);
+//  mDrive3.set_move_limits_mm(-1.57, 1.57);
 
   Stepper4.set_run_current(28);
   Stepper4.set_hold_current(20);
   mDrive4.set_default_vel_mmps(1);
-  mDrive4.set_default_acc_mmps2(10);
+  mDrive4.set_default_acc_mmps2(50);
+  mDrive4.set_move_limits_mm(0.0, 2.25);
 
   Stepper5.set_run_current(28);
   Stepper5.set_hold_current(20);
   mDrive5.set_default_vel_mmps(1);
-  mDrive5.set_default_acc_mmps2(10);
+  mDrive5.set_default_acc_mmps2(50);
+  mDrive5.set_move_limits_mm(0.0, 2.25);
 
   Stepper6.set_run_current(28);
-  Stepper6.set_hold_current(20);
-  mDrive6.set_default_vel_mmps(1);
-  mDrive6.set_default_acc_mmps2(10);
+  Stepper6.set_hold_current(24);
+  mDrive6.set_default_vel_mmps(0.5);
+  mDrive6.set_default_acc_mmps2(25);
+  mDrive6.set_move_limits_mm(-6.5, 6.5);
 
   Serial.println("Enabling and zeroing all motors");
   mDrive0.enable();
@@ -104,37 +130,59 @@ void loop() {
   mDrive6.enable();
 
   char serial_data[MAX_MSG_LEN];
+  clear_data(serial_data);
   char base_cmd, char_value;
   int32_t base_value, int_value;
   float float_value;
+  bool run_dynostep_loop = false;
 
-  while (true) 
-  {
-    Serial.println("Drive 0...");
-    mDrive0.set_pos_target_mm_sync(0.5, 300*1, false);
-    mDrive0.set_pos_target_mm_sync(0, 300*1, false);
+//  while (true) 
+//  {
+//    Serial.println("Drive 0...");
+//    mDrive0.set_pos_target_mm_sync(0.1, 300*1, false);
+//    mDrive0.set_pos_target_mm_sync(0, 300*1, false);
 //    Serial.println("Drive 1...");
-//    mDrive1.set_pos_target_mm_sync(-20, 40*1, true);
-//    mDrive1.set_pos_target_mm_sync(0, 20*1, false);
+//    mDrive1.set_pos_target_mm_sync(0.1, 10*1, true);
+//    mDrive1.set_pos_target_mm_sync(0, 10*1, false);
 //    Serial.println("Drive 2...");
-//    mDrive2.set_pos_target_mm_sync(5, 20*1, false);
-//    mDrive2.set_pos_target_mm_sync(0, 20*1, false);
+//    mDrive2.set_pos_target_mm_sync(0.1, 10*1, false);
+//    mDrive2.set_pos_target_mm_sync(0, 10*1, false);
 //    Serial.println("Drive 3...");
-//    mDrive3.set_pos_target_mm_sync(1, 200*1, false);
+//    mDrive3.set_pos_target_mm_sync(0.1, 200*1, false);
 //    mDrive3.set_pos_target_mm_sync(0, 200*1, false);
-//    Serial.println("Drive 4...");
-//    mDrive4.set_pos_target_mm_sync(1, 60*1, false);
-//    mDrive4.set_pos_target_mm_sync(0, 60*1, false);
-//    Serial.println("Drive 5...");
-//    mDrive5.set_pos_target_mm_sync(1, 120*1, false);
-//    mDrive5.set_pos_target_mm_sync(0, 120*1, false);
+////    Serial.println("Drive 4...");
+////    mDrive4.set_pos_target_mm_sync(1, 60*1, false);
+////    mDrive4.set_pos_target_mm_sync(0, 60*1, false);
+////    Serial.println("Drive 5...");
+////    mDrive5.set_pos_target_mm_sync(1, 120*1, false);
+////    mDrive5.set_pos_target_mm_sync(0, 120*1, false);
 //    Serial.println("Drive 6...");
-//    mDrive6.set_pos_target_mm_sync(1, 600*1, false);
+//    mDrive6.set_pos_target_mm_sync(0.1, 600*1, false);
 //    mDrive6.set_pos_target_mm_sync(0, 600*1, false);
-  }
+//  }
+
+//  speedtest(mDrive1, 0.3, 0.5, 2, 0.1);
 
   while (true)
   {
+    // First handle the async step thing if you wanna go this route
+    if (run_dynostep_loop)
+    {
+      uint32_t tnow = micros();
+      bool r0 = mDrive0.step_if_needed(tnow);
+      bool r1 = mDrive1.step_if_needed(tnow);
+      bool r2 = mDrive2.step_if_needed(tnow);
+      bool r3 = mDrive3.step_if_needed(tnow);
+      bool r6 = mDrive6.step_if_needed(tnow);
+
+      if (!r0 && !r1 && !r2 && !r3 && !r6)
+      {
+        Serial.println("STOPPING DYNOSTEPPS");
+        run_dynostep_loop = false;
+      }
+    }
+    
+
     if (respondToSerial(serial_data)) 
     {
       vector<string> args;
@@ -146,23 +194,33 @@ void loop() {
         case 'g': {
           switch (base_value) 
           {
-            case 0:
-            case 1: {
+            case 0: {
               // LINEAR MOVE DO NOT WAIT
+              gcode_command_floats gcode(args);
+              if(gcode.com_exists('x')) mDrive0.set_pos_target_mm_async(gcode.fetch('x'), gcode.fetch('f'));
+              if(gcode.com_exists('y')) mDrive1.set_pos_target_mm_async(gcode.fetch('y'), gcode.fetch('f'));
+              if(gcode.com_exists('z')) mDrive2.set_pos_target_mm_async(gcode.fetch('z'), gcode.fetch('f'));
+              if(gcode.com_exists('a')) mDrive3.set_pos_target_mm_async(gcode.fetch('a'), gcode.fetch('f'));
+              if(gcode.com_exists('b')) mDrive6.set_pos_target_mm_async(gcode.fetch('b'), gcode.fetch('f'));
+              run_dynostep_loop = true;
+              break;
+            }
+            case 1: {
+              // LINEAR MOVE WAIT
               gcode_command_floats gcode(args);
               if(gcode.com_exists('x')) mDrive0.plan_move(gcode.fetch('x'), gcode.fetch('f'));
               if(gcode.com_exists('y')) mDrive1.plan_move(gcode.fetch('y'), gcode.fetch('f'));
               if(gcode.com_exists('z')) mDrive2.plan_move(gcode.fetch('z'), gcode.fetch('f'));
               if(gcode.com_exists('a')) mDrive3.plan_move(gcode.fetch('a'), gcode.fetch('f'));
-              if(gcode.com_exists('b')) mDrive4.plan_move(gcode.fetch('b'), gcode.fetch('f'));
-              if(gcode.com_exists('c')) mDrive5.plan_move(gcode.fetch('c'), gcode.fetch('f'));
+              if(gcode.com_exists('b')) mDrive6.plan_move(gcode.fetch('b'), gcode.fetch('f'));
+//              if(gcode.com_exists('c')) mDrive5.plan_move(gcode.fetch('c'), gcode.fetch('f'));
               
               mDrive0.execute_move_async();
               mDrive1.execute_move_async();
               mDrive2.execute_move_async();
               mDrive3.execute_move_async();
-              mDrive4.execute_move_async();
-              mDrive5.execute_move_async();
+              mDrive6.execute_move_async();
+//              mDrive5.execute_move_async();
               while(true)
               {
                 uint32_t tnow = micros();
@@ -170,9 +228,9 @@ void loop() {
                 bool r1 = mDrive1.async_move_step_check(tnow);
                 bool r2 = mDrive2.async_move_step_check(tnow);
                 bool r3 = mDrive3.async_move_step_check(tnow);
-                bool r4 = mDrive4.async_move_step_check(tnow);
-                bool r5 = mDrive5.async_move_step_check(tnow);
-                if(r0 && r1 && r2 && r3 && r4 && r5)
+                bool r6 = mDrive6.async_move_step_check(tnow);
+//                bool r5 = mDrive5.async_move_step_check(tnow);
+                if(r0 && r1 && r2 && r3 && r6)
                   break;
               }
               break;
@@ -184,16 +242,16 @@ void loop() {
               if(gcode.com_exists('y')) mDrive1.set_current_pos_mm(gcode.fetch('y'));
               if(gcode.com_exists('z')) mDrive2.set_current_pos_mm(gcode.fetch('z'));
               if(gcode.com_exists('a')) mDrive3.set_current_pos_mm(gcode.fetch('a'));
-              if(gcode.com_exists('b')) mDrive4.set_current_pos_mm(gcode.fetch('b'));
-              if(gcode.com_exists('c')) mDrive5.set_current_pos_mm(gcode.fetch('c'));
-              if(!gcode.com_exists('x') && !gcode.com_exists('y') && !gcode.com_exists('z') && !gcode.com_exists('a') && !gcode.com_exists('b') && !gcode.com_exists('c'))
+              if(gcode.com_exists('b')) mDrive6.set_current_pos_mm(gcode.fetch('b'));
+//              if(gcode.com_exists('c')) mDrive5.set_current_pos_mm(gcode.fetch('c'));
+              if(!gcode.com_exists('x') && !gcode.com_exists('y') && !gcode.com_exists('z') && !gcode.com_exists('a') && !gcode.com_exists('b')) // && !gcode.com_exists('c'))
               {
                 mDrive0.zero();
                 mDrive1.zero();
                 mDrive2.zero();
                 mDrive3.zero();
-                mDrive4.zero();
-                mDrive5.zero();
+                mDrive6.zero();
+//                mDrive5.zero();
               }
               break;
             }
@@ -204,8 +262,8 @@ void loop() {
               if(gcode.com_exists('y')) mDrive1.set_default_vel_mmps(gcode.fetch('y'));
               if(gcode.com_exists('z')) mDrive2.set_default_vel_mmps(gcode.fetch('z'));
               if(gcode.com_exists('a')) mDrive3.set_default_vel_mmps(gcode.fetch('a'));
-              if(gcode.com_exists('b')) mDrive4.set_default_vel_mmps(gcode.fetch('b'));
-              if(gcode.com_exists('c')) mDrive5.set_default_vel_mmps(gcode.fetch('c'));
+              if(gcode.com_exists('b')) mDrive6.set_default_vel_mmps(gcode.fetch('b'));
+//              if(gcode.com_exists('c')) mDrive5.set_default_vel_mmps(gcode.fetch('c'));
               break;
             }
             case 101: {
@@ -215,12 +273,51 @@ void loop() {
               if(gcode.com_exists('y')) mDrive1.set_default_acc_mmps2(gcode.fetch('y'));
               if(gcode.com_exists('z')) mDrive2.set_default_acc_mmps2(gcode.fetch('z'));
               if(gcode.com_exists('a')) mDrive3.set_default_acc_mmps2(gcode.fetch('a'));
-              if(gcode.com_exists('b')) mDrive4.set_default_acc_mmps2(gcode.fetch('b'));
-              if(gcode.com_exists('c')) mDrive5.set_default_acc_mmps2(gcode.fetch('c'));
+              if(gcode.com_exists('b')) mDrive6.set_default_acc_mmps2(gcode.fetch('b'));
+//              if(gcode.com_exists('c')) mDrive5.set_default_acc_mmps2(gcode.fetch('c'));
               break;
             }
           }
         }
+        case 'm': {
+          switch (base_value) 
+          {
+            case 80: {
+              mDrive0.enable();
+              mDrive1.enable();
+              mDrive2.enable();
+              mDrive3.enable();
+              mDrive6.enable();
+              break;
+            }
+            case 81: {
+              mDrive0.disable();
+              mDrive1.disable();
+              mDrive2.disable();
+              mDrive3.disable();
+              mDrive6.disable();
+              break;
+            }
+            case 114: {
+              Serial.print("X:");
+              Serial.print(mDrive0.get_current_pos_mm());
+              Serial.print(" Y:");
+              Serial.print(mDrive1.get_current_pos_mm());
+              Serial.print(" Z:");
+              Serial.print(mDrive2.get_current_pos_mm());
+              Serial.print(" A:");
+              Serial.print(mDrive3.get_current_pos_mm());
+              Serial.print(" B:");
+              Serial.print(mDrive6.get_current_pos_mm());
+//              Serial.print(" C:");
+//              Serial.print(mDrive0.get_current_pos_mm());
+              Serial.println();
+              break;
+            }
+          }
+        }
+        Serial.println("ok");
+        clear_data(serial_data);
       }
     }
   }

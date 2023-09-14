@@ -181,7 +181,7 @@ struct motorDrive
     void zero();
     void enable();
     void disable();
-    void set_max_move_dist_mm(float new_lim_mm);
+    void set_move_limits_mm(float minlim, float maxlim);
     double get_current_pos_mm();
     double get_current_vel_mmps();
 
@@ -191,7 +191,7 @@ struct motorDrive
 
     // Async move related supporting real time target adjustment. Limit of ~20KHz step speed
     void set_pos_target_mm_async(double target, float feedrate = NOVALUE);
-    bool step_if_needed();
+    bool step_if_needed(uint32_t t_now = micros());
     
     // Standard Synchronous move
     void set_pos_target_mm_sync(double target, float feedrate = NOVALUE, bool ignore_limits = false);
@@ -210,6 +210,7 @@ struct motorDrive
     float max_vel = 100;
     float home_vel = 30;
     float max_accel = 500;
+    float min_dist_mm = -10000;
     float max_dist_mm = 10000;
     float home_backoff_mm = 1;
     float step_size_mm;
@@ -223,6 +224,7 @@ struct motorDrive
     double target_mm = 0;
 
     // Async Motion tracking vars
+    bool stopped = true;
     double current_velocity = 0;
     double diff_exact_us = 0;
     uint32_t last_step_us = 0;

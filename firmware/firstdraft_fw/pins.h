@@ -1,4 +1,3 @@
-
 #define S0EN   16
 #define S0CS   17
 #define S0STEP 18

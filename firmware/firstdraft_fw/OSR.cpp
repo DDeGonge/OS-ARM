@@ -73,9 +73,9 @@ void TMC2041::write_cmd(uint8_t addr, uint8_t chunk[4])
     //     Serial.print(chunk[j], BIN);
     // }
     int32_t verifychunk = read_cmd(addr);
-    Serial.print("\t");
-    Serial.print(verifychunk, BIN);
-    Serial.println();
+     Serial.print("\t");
+     Serial.print(verifychunk, BIN);
+     Serial.println();
 }
 
 int32_t TMC2041::read_cmd(uint8_t addr)
@@ -179,17 +179,6 @@ void TMC5160::write_cmd(uint8_t addr, uint8_t chunk[4])
 
     SPI.endTransaction();
     digitalWrite(CS_PIN, HIGH);
-
-    // Serial.print(addr, HEX);
-    // for(uint8_t j = 0; j < 4; j++)
-    // {
-    //     Serial.print("\t");
-    //     Serial.print(chunk[j], BIN);
-    // }
-    int32_t verifychunk = read_cmd(addr);
-    Serial.print("\t");
-    Serial.print(verifychunk, BIN);
-    Serial.println();
 }
 
 int32_t TMC5160::read_cmd(uint8_t addr)
@@ -313,7 +302,7 @@ void TMCstep::set_2041_default_bitfields()
 void TMCstep::set_5160_default_bitfields()
 {
     uint8_t new_ihold[4] = {B00000000, B00000001, B00011110, B00001000};
-    uint8_t new_chop[4]  = {B00000000, B00000001, B00000000, B00001001};
+    uint8_t new_chop[4]  = {B00000010, B00000001, B00000000, B00001001};
     uint8_t new_cool[4]  = {B00000000, B00000110, B00000000, B00000000};
 
     std::copy(std::begin(new_ihold), std::end(new_ihold), std::begin(ihold));
@@ -544,9 +533,10 @@ void motorDrive::set_current_pos_mm(double target)
 }
 
 // Public - Set softstop limit for linear drive
-void motorDrive::set_max_move_dist_mm(float new_lim_mm)
+void motorDrive::set_move_limits_mm(float minlim, float maxlim)
 {
-    max_dist_mm = new_lim_mm;
+    min_dist_mm = minlim;
+    max_dist_mm = maxlim;
 }
 
 // Public - Update target position in mm. Respects present joint momentum.
@@ -620,6 +610,7 @@ void motorDrive::execute_move_async()
     if (plan_nsteps > 0)
     {
         plan_stepstaken = 1;
+        stopped = false;
         plan_nextstep_us = micros() + plan_accel_timings[0];
         stepper.step();
     }
@@ -628,10 +619,13 @@ void motorDrive::execute_move_async()
 // Public - Take a step if ready. Call this in a loop until it returns true
 bool motorDrive::async_move_step_check(uint32_t t_now, bool stall_check)
 {
-    if (plan_stepstaken >= plan_nsteps)
+    if (stopped) return true;
+    if ((plan_stepstaken >= plan_nsteps) && !stopped)
     {
         plan_nsteps = 0;
         plan_stepstaken = 0;
+        plan_accel_timings.clear();
+        stopped = true;
         return true;
     }
     else if (t_now > plan_nextstep_us)
@@ -698,9 +692,8 @@ int32_t motorDrive::solve_for_t_us(float v, float a, float d)
 }
 
 // Public - The magic sauce. Tracks motor motion and calculates if a step is needed now to stay on track.
-bool motorDrive::step_if_needed()
+bool motorDrive::step_if_needed(uint32_t t_now)
 {
-    uint32_t t_now = micros();
     int32_t step_target = (steps_per_mm * target_mm);
 
     // Check if motor is in right place already
@@ -844,7 +837,7 @@ void motorDrive::quad_solve(double &t_0, double &t_1, double a, double b, double
 double motorDrive::check_target(double target)
 {
     target = target == NOVALUE ? target_mm : target;
-    target = target < 0 ? 0 : target;
+    target = target < min_dist_mm ? min_dist_mm : target;
     target = target > max_dist_mm ? max_dist_mm : target;
     return target;
 }
