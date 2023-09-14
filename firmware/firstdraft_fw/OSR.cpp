@@ -73,9 +73,9 @@ void TMC2041::write_cmd(uint8_t addr, uint8_t chunk[4])
     //     Serial.print(chunk[j], BIN);
     // }
     int32_t verifychunk = read_cmd(addr);
-     Serial.print("\t");
-     Serial.print(verifychunk, BIN);
-     Serial.println();
+    // Serial.print("\t");
+    // Serial.print(verifychunk, BIN);
+    // Serial.println();
 }
 
 int32_t TMC2041::read_cmd(uint8_t addr)

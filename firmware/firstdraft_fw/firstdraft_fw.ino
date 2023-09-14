@@ -77,9 +77,9 @@ void loop() {
   Stepper0.set_run_current(29);
   Stepper0.set_hold_current(12);
   Stepper0.set_microsteps(4); // 1/16 stepping
-  mDrive0.set_default_vel_mmps(5);
+  mDrive0.set_default_vel_mmps(1);
   mDrive0.set_default_acc_mmps2(20);
-  mDrive0.set_move_limits_mm(-1.57, 1.57);
+  mDrive0.set_move_limits_mm(-1.65, 1.65);
 
   Stepper1.set_run_current(30);
   Stepper1.set_hold_current(12);
@@ -100,7 +100,7 @@ void loop() {
   Stepper0.set_microsteps(4); // 1/16 stepping
   mDrive3.set_default_vel_mmps(1.0);
   mDrive3.set_default_acc_mmps2(25);
-//  mDrive3.set_move_limits_mm(-1.57, 1.57);
+  mDrive3.set_move_limits_mm(-1.7, 1.7);
 
   Stepper4.set_run_current(28);
   Stepper4.set_hold_current(20);

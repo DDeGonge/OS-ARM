@@ -245,22 +245,42 @@ def run_ik_routine():
     pt1.rotation_xyz_rad = [0, 0, 0]
 
     newpt = pose()
-    newpt.position_mm = [0,575,250]
+    newpt.position_mm = [0,450,250]
     newpt.rotation_xyz_rad = [0, 0, 0]
     poses.append(newpt)
 
     newpt = pose()
-    newpt.position_mm = [300,450,250]
+    newpt.position_mm = [0,450,300]
     newpt.rotation_xyz_rad = [0, 0, 0]
     poses.append(newpt)
 
     newpt = pose()
-    newpt.position_mm = [300,450,250]
+    newpt.position_mm = [0,400,300]
     newpt.rotation_xyz_rad = [0, 0, 0]
     poses.append(newpt)
 
     newpt = pose()
-    newpt.position_mm = [300,450,350]
+    newpt.position_mm = [0,400,250]
+    newpt.rotation_xyz_rad = [0, 0, 0]
+    poses.append(newpt)
+
+    newpt = pose()
+    newpt.position_mm = [0,450,250]
+    newpt.rotation_xyz_rad = [0, 0, 0]
+    poses.append(newpt)
+
+    newpt = pose()
+    newpt.position_mm = [0,450,300]
+    newpt.rotation_xyz_rad = [0, 0, 0]
+    poses.append(newpt)
+
+    newpt = pose()
+    newpt.position_mm = [0,400,300]
+    newpt.rotation_xyz_rad = [0, 0, 0]
+    poses.append(newpt)
+
+    newpt = pose()
+    newpt.position_mm = [0,400,400]
     newpt.rotation_xyz_rad = [0, 0, 0]
     poses.append(newpt)
 
@@ -288,7 +308,7 @@ def run_ik_routine():
 #     print(test_pose(goal_pose2))
 
 if __name__ == '__main__':
-    # run_ik_routine()
+    run_ik_routine()
     # run_not_ik_routine()
-    shakey_shakey()
+    # shakey_shakey()
     # ik_test([100,500,175], [0, 0, 0])
